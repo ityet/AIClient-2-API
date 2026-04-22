@@ -121,10 +121,10 @@ class ApiClient {
             const response = await fetch(url, config);
             
             // 如果是401错误，重定向到登录页
-            if (response.status === 401) {
-                this.handleUnauthorized();
-                throw new Error(t('common.unauthorized'));
-            }
+            //if (response.status === 401) {
+            //    this.handleUnauthorized();
+            //    throw new Error(t('common.unauthorized'));
+            //}
 
             const contentType = response.headers.get('content-type');
             let data;
