@@ -14,7 +14,7 @@ import { existsSync } from 'fs';
 import path from 'path';
 
 // 插件配置文件路径
-const PLUGINS_CONFIG_FILE = path.join(process.cwd(), 'configs', 'plugins.json');
+const PLUGINS_CONFIG_FILE = path.join('/tmp/configs', 'plugins.json');
 
 // 默认禁用的插件列表
 const DEFAULT_DISABLED_PLUGINS = ['api-potluck', 'ai-monitor', 'model-usage-stats'];
