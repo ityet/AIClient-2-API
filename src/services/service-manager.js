@@ -46,7 +46,7 @@ export async function autoLinkProviderConfigs(config, options = {}) {
     } else {
         // 遍历所有提供商映射
         for (const mapping of PROVIDER_MAPPINGS) {
-            const configsPath = path.join(process.cwd(), 'configs', mapping.dirName);
+            const configsPath = path.join('/tmp', 'configs', mapping.dirName);
             const { providerType, credPathKey, defaultCheckModel, displayName, needsProjectId } = mapping;
             
             // 确保提供商类型数组存在
@@ -87,7 +87,7 @@ export async function autoLinkProviderConfigs(config, options = {}) {
     
     // 如果有新的配置文件需要关联，保存更新后的 provider_pools.json
     if (totalNewProviders > 0) {
-        const filePath = config.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = config.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         try {
             await withFileLock(filePath, async () => {
                 await atomicWriteFile(filePath, JSON.stringify(config.providerPools, null, 2), 'utf8');
@@ -148,7 +148,7 @@ async function linkSingleCredential(config, credPath) {
         // 根据文件路径确定提供商类型
         let matchedMapping = null;
         for (const mapping of PROVIDER_MAPPINGS) {
-            const configsPath = path.join(process.cwd(), 'configs', mapping.dirName);
+            const configsPath = path.join('/tmp/configs', mapping.dirName);
             // 检查文件是否在该提供商的配置目录下
             if (absolutePath.startsWith(configsPath)) {
                 matchedMapping = mapping;
@@ -551,7 +551,7 @@ export function markProviderUnhealthy(provider, providerInfo) {
  */
 export async function getProviderStatus(config, options = {}) {
     let providerPools = {};
-    const filePath = config.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = config.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     try {
         if (providerPoolManager && providerPoolManager.providerPools) {
             providerPools = providerPoolManager.providerPools;
