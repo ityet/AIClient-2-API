@@ -35,7 +35,7 @@ export async function handleViewConfigFile(req, res, filePath) {
         const fullPath = path.join(process.cwd(), filePath);
         
         // 安全检查：确保文件路径在允许的目录内
-        const allowedDirs = ['configs'];
+        const allowedDirs = ['/tmp/configs'];
         const relativePath = path.relative(process.cwd(), fullPath);
         const isAllowed = allowedDirs.some(dir => relativePath.startsWith(dir + path.sep) || relativePath === dir);
         
@@ -91,7 +91,7 @@ export async function handleDownloadConfigFile(req, res, filePath) {
         const fullPath = path.join(process.cwd(), filePath);
         
         // 安全检查：确保文件路径在允许的目录内
-        const allowedDirs = ['configs'];
+        const allowedDirs = ['/tmp/configs'];
         const relativePath = path.relative(process.cwd(), fullPath);
         const isAllowed = allowedDirs.some(dir => relativePath.startsWith(dir + path.sep) || relativePath === dir);
         
@@ -145,7 +145,7 @@ export async function handleDeleteConfigFile(req, res, filePath) {
         const fullPath = path.join(process.cwd(), filePath);
         
         // 安全检查：确保文件路径在允许的目录内
-        const allowedDirs = ['configs'];
+        const allowedDirs = ['/tmp/configs'];
         const relativePath = path.relative(process.cwd(), fullPath);
         const isAllowed = allowedDirs.some(dir => relativePath.startsWith(dir + path.sep) || relativePath === dir);
         
@@ -203,7 +203,7 @@ export async function handleDeleteConfigFile(req, res, filePath) {
  */
 export async function handleDownloadAllConfigs(req, res) {
     try {
-        const configsPath = path.join(process.cwd(), 'configs');
+        const configsPath = path.join('/tmp', 'configs');
         if (!existsSync(configsPath)) {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: { message: 'configs directory does not exist' } }));
@@ -275,7 +275,7 @@ export async function handleDeleteUnboundConfigs(req, res, currentConfig, provid
             
             // 路径至少需要3部分：configs/子目录/文件名
             // 例如：configs/kiro/xxx.json 或 configs/gemini/xxx.json
-            if (pathParts.length >= 3 && pathParts[0] === 'configs') {
+            if (pathParts.length >= 3 && pathParts[0] === '/tmp/configs') {
                 // 确保第二部分是子目录名（不是文件名）
                 return true;
             }
@@ -302,7 +302,7 @@ export async function handleDeleteUnboundConfigs(req, res, currentConfig, provid
                 const fullPath = path.join(process.cwd(), config.path);
                 
                 // 安全检查：确保文件路径在允许的目录内
-                const allowedDirs = ['configs'];
+                const allowedDirs = ['/tmp/configs'];
                 const relativePath = path.relative(process.cwd(), fullPath);
                 const isAllowed = allowedDirs.some(dir => relativePath.startsWith(dir + path.sep) || relativePath === dir);
                 
@@ -372,7 +372,7 @@ export async function handleForceExpireConfig(req, res, filePath, currentConfig,
         const fullPath = path.join(process.cwd(), filePath);
         
         // 安全检查：确保文件路径在允许的目录内
-        const allowedDirs = ['configs'];
+        const allowedDirs = ['/tmp/configs'];
         const relativePath = path.relative(process.cwd(), fullPath);
         const isAllowed = allowedDirs.some(dir => relativePath.startsWith(dir + path.sep) || relativePath === dir);
         
