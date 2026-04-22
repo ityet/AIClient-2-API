@@ -1102,37 +1102,37 @@ function detectProviderFromPath(filePath) {
     // 定义目录到提供商的映射关系
     const providerMappings = [
         {
-            patterns: ['configs/kiro/', '/kiro/'],
+            patterns: ['/tmp/configs/kiro/', '/kiro/'],
             providerType: 'claude-kiro-oauth',
             displayName: 'Claude Kiro OAuth',
             shortName: 'kiro-oauth'
         },
         {
-            patterns: ['configs/gemini/', '/gemini/', 'configs/gemini-cli/'],
+            patterns: ['/tmp/configs/gemini/', '/gemini/', '/tmp/configs/gemini-cli/'],
             providerType: 'gemini-cli-oauth',
             displayName: 'Gemini CLI OAuth',
             shortName: 'gemini-oauth'
         },
         {
-            patterns: ['configs/qwen/', '/qwen/'],
+            patterns: ['/tmp/configs/qwen/', '/qwen/'],
             providerType: 'openai-qwen-oauth',
             displayName: 'Qwen OAuth',
             shortName: 'qwen-oauth'
         },
         {
-            patterns: ['configs/antigravity/', '/antigravity/'],
+            patterns: ['/tmp/configs/antigravity/', '/antigravity/'],
             providerType: 'gemini-antigravity',
             displayName: 'Gemini Antigravity',
             shortName: 'antigravity'
         },
         {
-            patterns: ['configs/codex/', '/codex/'],
+            patterns: ['/tmp/configs/codex/', '/codex/'],
             providerType: 'openai-codex-oauth',
             displayName: 'OpenAI Codex OAuth',
             shortName: 'codex-oauth'
         },
         {
-            patterns: ['configs/iflow/', '/iflow/'],
+            patterns: ['/tmp/configs/iflow/', '/iflow/'],
             providerType: 'openai-iflow',
             displayName: 'OpenAI iFlow OAuth',
             shortName: 'iflow-oauth'
