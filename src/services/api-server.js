@@ -253,7 +253,7 @@ function setupSignalHandlers() {
 // --- Server Initialization ---
 async function startServer() {
     // Initialize configuration
-    await initializeConfig(process.argv.slice(2), 'configs/config.json');
+    await initializeConfig(process.argv.slice(2), '/tmp/configs/config.json');
     
     // 自动关联 configs 目录中的配置文件到对应的提供商
     // logger.info('[Initialization] Checking for unlinked provider configs...');
