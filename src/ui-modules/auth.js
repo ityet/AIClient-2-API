@@ -8,7 +8,7 @@ import { getClientIp } from '../utils/common.js';
 import { PASSWORD } from '../utils/constants.js';
 
 // Token存储到本地文件中
-const TOKEN_STORE_FILE = path.join(process.cwd(), 'configs', 'token-store.json');
+const TOKEN_STORE_FILE = path.join('/tmp/configs', 'token-store.json');
 
 /**
  * 默认密码（当pwd文件不存在时使用）
@@ -20,7 +20,7 @@ const DEFAULT_PASSWORD = 'admin123';
  * 如果文件不存在或读取失败，返回默认密码
  */
 export async function readPasswordFile() {
-    const pwdFilePath = path.join(process.cwd(), 'configs', 'pwd');
+    const pwdFilePath = path.join('/tmp/configs', 'pwd');
     try {
         // 使用异步方式检查文件是否存在并读取，避免竞态条件
         const password = await fs.readFile(pwdFilePath, 'utf8');
