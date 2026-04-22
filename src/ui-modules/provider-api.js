@@ -97,7 +97,7 @@ function filterMaskedData(data) {
 }
 
 function getProviderPoolsFilePath(currentConfig) {
-    return currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    return currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
 }
 
 function loadProviderPools(currentConfig, providerPoolManager) {
@@ -121,7 +121,7 @@ function getManagedSupportedModels(providerType, providers = []) {
 }
 
 async function persistProviderStatusToFile(currentConfig, providerPoolManager) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     const providerPools = {};
 
     for (const providerType in providerPoolManager.providerStatus) {
@@ -237,7 +237,7 @@ export async function handleGetProviders(req, res, currentConfig, providerPoolMa
     }
     
     // 3. 补全号池配置文件中的所有组
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     try {
         if (existsSync(filePath)) {
             const poolsData = JSON.parse(readFileSync(filePath, 'utf-8'));
@@ -278,7 +278,7 @@ export async function handleGetProviders(req, res, currentConfig, providerPoolMa
  */
 export async function handleGetProviderType(req, res, currentConfig, providerPoolManager, providerType) {
     let providerPools = {};
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     try {
         if (providerPoolManager && providerPoolManager.providerPools) {
             providerPools = providerPoolManager.providerPools;
@@ -308,7 +308,7 @@ export async function handleGetSupportedProviders(req, res, currentConfig, provi
     const registeredProviders = getRegisteredProviders();
     let poolTypes = [];
 
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     try {
         if (providerPoolManager && providerPoolManager.providerPools) {
             poolTypes = Object.keys(providerPoolManager.providerPools);
@@ -453,7 +453,7 @@ export async function handleDetectProviderModels(req, res, currentConfig, provid
 export async function handleAddProvider(req, res, currentConfig, providerPoolManager) {
     try {
         const body = await getRequestBody(req);
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         return await withFileLock(filePath, () => _handleAddProvider(req, res, currentConfig, providerPoolManager, body));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -483,7 +483,7 @@ async function _handleAddProvider(req, res, currentConfig, providerPoolManager, 
         providerConfig.errorCount = providerConfig.errorCount || 0;
         providerConfig.lastErrorTime = providerConfig.lastErrorTime || null;
 
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -557,7 +557,7 @@ async function _handleAddProvider(req, res, currentConfig, providerPoolManager, 
 export async function handleUpdateProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid) {
     try {
         const body = await getRequestBody(req);
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         return await withFileLock(filePath, () => _handleUpdateProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid, body));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -575,7 +575,7 @@ async function _handleUpdateProvider(req, res, currentConfig, providerPoolManage
             return true;
         }
 
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -660,7 +660,7 @@ async function _handleUpdateProvider(req, res, currentConfig, providerPoolManage
  * 删除特定提供商配置
  */
 export async function handleDeleteProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleDeleteProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -669,7 +669,7 @@ export async function handleDeleteProvider(req, res, currentConfig, providerPool
 }
 async function _handleDeleteProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -741,7 +741,7 @@ async function _handleDeleteProvider(req, res, currentConfig, providerPoolManage
  * 禁用/启用特定提供商配置
  */
 export async function handleDisableEnableProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid, action) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleDisableEnableProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid, action)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -750,7 +750,7 @@ export async function handleDisableEnableProvider(req, res, currentConfig, provi
 }
 async function _handleDisableEnableProvider(req, res, currentConfig, providerPoolManager, providerType, providerUuid, action) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -822,7 +822,7 @@ async function _handleDisableEnableProvider(req, res, currentConfig, providerPoo
  * 重置特定提供商类型的所有提供商健康状态
  */
 export async function handleResetProviderHealth(req, res, currentConfig, providerPoolManager, providerType) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleResetProviderHealth(req, res, currentConfig, providerPoolManager, providerType)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -831,7 +831,7 @@ export async function handleResetProviderHealth(req, res, currentConfig, provide
 }
 async function _handleResetProviderHealth(req, res, currentConfig, providerPoolManager, providerType) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         
         let resetCount = 0;
         let totalCount = 0;
@@ -936,7 +936,7 @@ async function _handleResetProviderHealth(req, res, currentConfig, providerPoolM
  * 删除特定提供商类型的所有不健康节点
  */
 export async function handleDeleteUnhealthyProviders(req, res, currentConfig, providerPoolManager, providerType) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleDeleteUnhealthyProviders(req, res, currentConfig, providerPoolManager, providerType)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -945,7 +945,7 @@ export async function handleDeleteUnhealthyProviders(req, res, currentConfig, pr
 }
 async function _handleDeleteUnhealthyProviders(req, res, currentConfig, providerPoolManager, providerType) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -1031,7 +1031,7 @@ async function _handleDeleteUnhealthyProviders(req, res, currentConfig, provider
  * 批量刷新特定提供商类型的所有不健康节点的 UUID
  */
 export async function handleRefreshUnhealthyUuids(req, res, currentConfig, providerPoolManager, providerType) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleRefreshUnhealthyUuids(req, res, currentConfig, providerPoolManager, providerType)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -1040,7 +1040,7 @@ export async function handleRefreshUnhealthyUuids(req, res, currentConfig, provi
 }
 async function _handleRefreshUnhealthyUuids(req, res, currentConfig, providerPoolManager, providerType) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
@@ -1235,7 +1235,7 @@ export async function handleHealthCheck(req, res, currentConfig, providerPoolMan
         }
 
         // 保存更新后的状态到文件 - 使用文件锁
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         
         await withFileLock(filePath, async (checkValidity) => {
             let currentPools = {};
@@ -1316,7 +1316,7 @@ export async function handleSingleProviderHealthCheck(req, res, currentConfig, p
         const result = await runProviderHealthCheck(providerPoolManager, providerType, providerStatus);
 
         // 使用文件锁进行持久化，防止并发写入冲突
-        const poolFilePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const poolFilePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         const filePath = await withFileLock(poolFilePath, async () => {
             return persistProviderStatusToFile(currentConfig, providerPoolManager);
         });
@@ -1366,7 +1366,7 @@ export async function handleQuickLinkProvider(req, res, currentConfig, providerP
             return true;
         }
 
-        const poolsFilePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const poolsFilePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         
         // Load existing pools
         let providerPools = {};
@@ -1522,7 +1522,7 @@ export async function handleQuickLinkProvider(req, res, currentConfig, providerP
  * 刷新特定提供商的UUID
  */
 export async function handleRefreshProviderUuid(req, res, currentConfig, providerPoolManager, providerType, providerUuid) {
-    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+    const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
     return withFileLock(filePath, () => _handleRefreshProviderUuid(req, res, currentConfig, providerPoolManager, providerType, providerUuid)).catch(err => {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: { message: 'File operation failed: ' + err.message } }));
@@ -1531,7 +1531,7 @@ export async function handleRefreshProviderUuid(req, res, currentConfig, provide
 }
 async function _handleRefreshProviderUuid(req, res, currentConfig, providerPoolManager, providerType, providerUuid) {
     try {
-        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || 'configs/provider_pools.json';
+        const filePath = currentConfig.PROVIDER_POOLS_FILE_PATH || '/tmp/configs/provider_pools.json';
         let providerPools = {};
         
         // Load existing pools
