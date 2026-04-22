@@ -13,8 +13,8 @@ import { addToUsedPaths, isPathUsed, pathsEqual, detectProviderFromPath } from '
 export async function scanConfigFiles(currentConfig, providerPoolManager) {
     const configFiles = [];
     
-    // 只扫描configs目录
-    const configsPath = path.join(process.cwd(), 'configs');
+    // 只扫描目录
+    const configsPath = path.join('/tmp', 'configs');
     
     if (!existsSync(configsPath)) {
         // logger.info('[Config Scanner] configs directory not found, creating empty result');
@@ -52,11 +52,11 @@ export async function scanConfigFiles(currentConfig, providerPoolManager) {
     }
 
     try {
-        // 扫描configs目录下的所有子目录和文件
-        const configsFiles = await scanOAuthDirectory(configsPath, usedPaths, currentConfig, providerPools);
-        configFiles.push(...configsFiles);
+        // 扫描目录下的所有子目录和文件
+        const Files = await scanOAuthDirectory(Path, usedPaths, currentConfig, providerPools);
+        configFiles.push(...Files);
     } catch (error) {
-        logger.warn(`[Config Scanner] Failed to scan configs directory:`, error.message);
+        logger.warn(`[Config Scanner] Failed to scan  directory:`, error.message);
     }
 
     return configFiles;
@@ -488,7 +488,7 @@ async function scanOAuthDirectory(dirPath, usedPaths, currentConfig, providerPoo
             } else if (file.isDirectory()) {
                 // 递归扫描子目录（限制深度）
                 const relativePath = path.relative(process.cwd(), fullPath);
-                // 最大深度4层，以支持 configs/kiro/{subfolder}/file.json 这样的结构
+                // 最大深度4层，以支持 /kiro/{subfolder}/file.json 这样的结构
                 if (relativePath.split(path.sep).length < 4) {
                     const subFiles = await scanOAuthDirectory(fullPath, usedPaths, currentConfig, providerPools);
                     oauthFiles.push(...subFiles);
