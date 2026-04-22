@@ -15,7 +15,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Kiro OAuth 配置
         dirName: 'kiro',
-        patterns: ['configs/kiro/', '/kiro/', 'kiro-auth-token'],
+        patterns: ['/tmp/configs/kiro/', '/kiro/', 'kiro-auth-token'],
         providerType: 'claude-kiro-oauth',
         credPathKey: 'KIRO_OAUTH_CREDS_FILE_PATH',
         defaultCheckModel: 'claude-haiku-4-5',
@@ -26,7 +26,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Gemini CLI OAuth 配置
         dirName: 'gemini',
-        patterns: ['configs/gemini/', '/gemini/', '/.gemini/', 'configs/gemini-cli/'],
+        patterns: ['/tmp/configs/gemini/', '/gemini/', '/.gemini/', '/tmp/configs/gemini-cli/'],
         providerType: 'gemini-cli-oauth',
         credPathKey: 'GEMINI_OAUTH_CREDS_FILE_PATH',
         defaultCheckModel: 'gemini-2.5-flash',
@@ -37,7 +37,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Qwen OAuth 配置
         dirName: 'qwen',
-        patterns: ['configs/qwen/', '/qwen/'],
+        patterns: ['/tmp/configs/qwen/', '/qwen/'],
         providerType: 'openai-qwen-oauth',
         credPathKey: 'QWEN_OAUTH_CREDS_FILE_PATH',
         defaultCheckModel: 'qwen3-coder-plus',
@@ -49,7 +49,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Antigravity OAuth 配置
         dirName: 'antigravity',
-        patterns: ['configs/antigravity/', '/antigravity/', '/.antigravity/'],
+        patterns: ['/tmp/configs/antigravity/', '/antigravity/', '/.antigravity/'],
         providerType: 'gemini-antigravity',
         credPathKey: 'ANTIGRAVITY_OAUTH_CREDS_FILE_PATH',
         defaultCheckModel: 'gemini-2.5-computer-use-preview-10-2025',
@@ -60,7 +60,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // iFlow 配置
         dirName: 'iflow',
-        patterns: ['configs/iflow/', '/iflow/'],
+        patterns: ['/tmp/configs/iflow/', '/iflow/'],
         providerType: 'openai-iflow',
         credPathKey: 'IFLOW_TOKEN_FILE_PATH',
         defaultCheckModel: 'gpt-4o',
@@ -71,7 +71,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Codex OAuth 配置
         dirName: 'codex',
-        patterns: ['configs/codex/', '/codex/', '/.codex/'],
+        patterns: ['/tmp/configs/codex/', '/codex/', '/.codex/'],
         providerType: 'openai-codex-oauth',
         credPathKey: 'CODEX_OAUTH_CREDS_FILE_PATH',
         defaultCheckModel: 'gpt-5.2-codex',
@@ -82,7 +82,7 @@ export const PROVIDER_MAPPINGS = [
     {
         // Grok Reverse 配置
         dirName: 'grok',
-        patterns: ['configs/grok/', '/grok/'],
+        patterns: ['/tmp/configs/grok/', '/grok/'],
         providerType: 'grok-custom',
         credPathKey: 'GROK_COOKIE_TOKEN',
         defaultCheckModel: 'grok-4.1-mini',
