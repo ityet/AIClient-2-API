@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 // 用量缓存文件路径
-const USAGE_CACHE_FILE = path.join(process.cwd(), 'configs', 'usage-cache.json');
+const USAGE_CACHE_FILE = path.join('/tmp/configs', 'usage-cache.json');
 
 /**
  * 读取用量缓存文件
