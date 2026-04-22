@@ -253,7 +253,7 @@ async function loadConfiguration() {
         const providerFallbackChainEl = document.getElementById('providerFallbackChain');
         const modelFallbackMappingEl = document.getElementById('modelFallbackMapping');
 
-        if (systemPromptFilePathEl) systemPromptFilePathEl.value = data.SYSTEM_PROMPT_FILE_PATH || 'configs/input_system_prompt.txt';
+        if (systemPromptFilePathEl) systemPromptFilePathEl.value = data.SYSTEM_PROMPT_FILE_PATH || '/tmp/configs/input_system_prompt.txt';
         if (systemPromptModeEl) systemPromptModeEl.value = data.SYSTEM_PROMPT_MODE || 'append';
         if (promptLogBaseNameEl) promptLogBaseNameEl.value = data.PROMPT_LOG_BASE_NAME || 'prompt_log';
         if (promptLogModeEl) promptLogModeEl.value = data.PROMPT_LOG_MODE || 'none';
@@ -431,7 +431,7 @@ async function saveConfiguration() {
     const adminPassword = document.getElementById('adminPassword')?.value || '';
 
     // 保存高级配置参数
-    config.SYSTEM_PROMPT_FILE_PATH = document.getElementById('systemPromptFilePath')?.value || 'configs/input_system_prompt.txt';
+    config.SYSTEM_PROMPT_FILE_PATH = document.getElementById('systemPromptFilePath')?.value || '/tmp/configs/input_system_prompt.txt';
     config.SYSTEM_PROMPT_MODE = document.getElementById('systemPromptMode')?.value || 'append';
     
     // 收集系统提示词内容替换规则
