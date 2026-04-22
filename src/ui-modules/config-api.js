@@ -16,7 +16,7 @@ import { withFileLock, atomicWriteFile } from '../utils/file-lock.js';
  */
 export async function reloadConfig(providerPoolManager) {
     try {
-        const configPath = 'configs/config.json';
+        const configPath = '/tmp/configs/config.json';
         // 使用文件锁进行重载，防止在写入期间读取
         return await withFileLock(configPath, async () => {
             // Import config manager dynamically
@@ -115,7 +115,7 @@ export async function handleGetConfig(req, res, currentConfig) {
 export async function handleUpdateConfig(req, res, currentConfig) {
     try {
         const body = await getRequestBody(req);
-        const configPath = 'configs/config.json';
+        const configPath = '/tmp/configs/config.json';
         return await withFileLock(configPath, () => _handleUpdateConfig(req, res, currentConfig, body));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -276,7 +276,7 @@ async function _handleUpdateConfig(req, res, currentConfig, body) {
 
         // Handle system prompt update
         if (newConfig.systemPrompt !== undefined) {
-            const promptPath = currentConfig.SYSTEM_PROMPT_FILE_PATH || 'configs/input_system_prompt.txt';
+            const promptPath = currentConfig.SYSTEM_PROMPT_FILE_PATH || '/tmp/configs/input_system_prompt.txt';
             try {
                 const relativePath = path.relative(process.cwd(), promptPath);
                 await atomicWriteFile(promptPath, newConfig.systemPrompt, 'utf-8');
@@ -297,7 +297,7 @@ async function _handleUpdateConfig(req, res, currentConfig, body) {
 
         // Update config.json file
         try {
-            const configPath = 'configs/config.json';
+            const configPath = '/tmp/configs/config.json';
             
             // Create a clean config object for saving (exclude runtime-only properties)
             const configToSave = {
@@ -340,12 +340,12 @@ async function _handleUpdateConfig(req, res, currentConfig, body) {
             };
 
             await atomicWriteFile(configPath, JSON.stringify(configToSave, null, 2), 'utf-8');
-            logger.info('[UI API] Configuration saved to configs/config.json');
+            logger.info('[UI API] Configuration saved to /tmp/configs/config.json');
             
             // 广播更新事件
             broadcastEvent('config_update', {
                 action: 'update',
-                filePath: 'configs/config.json',
+                filePath: '/tmp/configs/config.json',
                 type: 'main_config',
                 timestamp: new Date().toISOString()
             });
@@ -389,7 +389,7 @@ export async function handleReloadConfig(req, res, providerPoolManager) {
         // 广播更新事件
         broadcastEvent('config_update', {
             action: 'reload',
-            filePath: 'configs/config.json',
+            filePath: '/tmp/configs/config.json',
             providerPoolsPath: newConfig.PROVIDER_POOLS_FILE_PATH || null,
             timestamp: new Date().toISOString()
         });
@@ -400,7 +400,7 @@ export async function handleReloadConfig(req, res, providerPoolManager) {
             message: 'Configuration files reloaded successfully',
             details: {
                 configReloaded: true,
-                configPath: 'configs/config.json',
+                configPath: '/tmp/configs/config.json',
                 providerPoolsPath: newConfig.PROVIDER_POOLS_FILE_PATH || null
             }
         }));
@@ -456,7 +456,7 @@ export async function handleUpdateAdminPassword(req, res) {
         );
         const stored = `pbkdf2:${salt}:${hash}`;
 
-        const pwdFilePath = path.join(process.cwd(), 'configs', 'pwd');
+        const pwdFilePath = path.join('/tmp/configs', 'pwd');
 
         // 使用文件锁和原子化写入
         await withFileLock(pwdFilePath, async () => {
