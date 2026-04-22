@@ -86,6 +86,7 @@ class ApiClient {
      */
     getAuthHeaders() {
         const token = this.authManager.getToken();
+        log.console(token);
         return token ? {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
