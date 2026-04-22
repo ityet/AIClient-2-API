@@ -22,37 +22,37 @@ function getBaseProviderConfigs() {
             id: 'gemini-cli-oauth', 
             name: t('dashboard.routing.nodeName.gemini'), 
             icon: 'fa-robot',
-            defaultPath: 'configs/gemini/'
+            defaultPath: '/tmp/configs/gemini/'
         },
         { 
             id: 'gemini-antigravity', 
             name: t('dashboard.routing.nodeName.antigravity'), 
             icon: 'fa-rocket',
-            defaultPath: 'configs/antigravity/'
+            defaultPath: '/tmp/configs/antigravity/'
         },
         { 
             id: 'claude-kiro-oauth', 
             name: t('dashboard.routing.nodeName.kiro'), 
             icon: 'fa-key',
-            defaultPath: 'configs/kiro/'
+            defaultPath: '/tmp/configs/kiro/'
         },
         { 
             id: 'openai-codex-oauth', 
             name: t('dashboard.routing.nodeName.codex'), 
             icon: 'fa-code',
-            defaultPath: 'configs/codex/'
+            defaultPath: '/tmp/configs/codex/'
         },
         { 
             id: 'openai-qwen-oauth', 
             name: t('dashboard.routing.nodeName.qwen'), 
             icon: 'fa-cloud',
-            defaultPath: 'configs/qwen/'
+            defaultPath: '/tmp/configs/qwen/'
         },
         { 
             id: 'openai-iflow', 
             name: t('dashboard.routing.nodeName.iflow'), 
             icon: 'fa-stream',
-            defaultPath: 'configs/iflow/'
+            defaultPath: '/tmp/configs/iflow/'
         },
         { 
             id: 'grok-custom', 
