@@ -66,10 +66,10 @@ function normalizeConfiguredProviders(config) {
 /**
  * Initializes the server configuration from config.json and command-line arguments.
  * @param {string[]} args - Command-line arguments.
- * @param {string} [configFilePath='configs/config.json'] - Path to the configuration file.
+ * @param {string} [configFilePath='/tmp/configs/config.json'] - Path to the configuration file.
  * @returns {Object} The initialized configuration object.
  */
-export async function initializeConfig(args = process.argv.slice(2), configFilePath = 'configs/config.json') {
+export async function initializeConfig(args = process.argv.slice(2), configFilePath = '/tmp/configs/config.json') {
     const defaultConfig = {
         REQUIRED_API_KEY: "123456",
         SERVER_PORT: 3000,
@@ -121,12 +121,12 @@ export async function initializeConfig(args = process.argv.slice(2), configFileP
         const configData = fs.readFileSync(configFilePath, 'utf8');
         const loadedConfig = JSON.parse(configData);
         Object.assign(currentConfig, loadedConfig);
-        logger.info('[Config] Loaded configuration from configs/config.json');
+        logger.info('[Config] Loaded configuration from /tmp/configs/config.json');
     } catch (error) {
         if (error.code !== 'ENOENT') {
-            logger.error('[Config Error] Failed to load configs/config.json:', error.message);
+            logger.error('[Config Error] Failed to load /tmp/configs/config.json:', error.message);
         } else {
-            logger.info('[Config] configs/config.json not found, using default configuration.');
+            logger.info('[Config] /tmp/configs/config.json not found, using default configuration.');
         }
     }
 
@@ -203,7 +203,7 @@ export async function initializeConfig(args = process.argv.slice(2), configFileP
 
     // 加载号池配置
     if (!currentConfig.PROVIDER_POOLS_FILE_PATH) {
-        currentConfig.PROVIDER_POOLS_FILE_PATH = 'configs/provider_pools.json';
+        currentConfig.PROVIDER_POOLS_FILE_PATH = '/tmp/configs/provider_pools.json';
     }
     if (currentConfig.PROVIDER_POOLS_FILE_PATH) {
         try {
@@ -220,7 +220,7 @@ export async function initializeConfig(args = process.argv.slice(2), configFileP
 
     // 加载自定义模型配置
     if (!currentConfig.CUSTOM_MODELS_FILE_PATH) {
-        currentConfig.CUSTOM_MODELS_FILE_PATH = 'configs/custom_models.json';
+        currentConfig.CUSTOM_MODELS_FILE_PATH = '/tmp/configs/custom_models.json';
     }
     try {
         if (fs.existsSync(currentConfig.CUSTOM_MODELS_FILE_PATH)) {
