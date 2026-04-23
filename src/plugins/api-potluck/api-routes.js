@@ -73,7 +73,7 @@ async function checkAdminAuth(req) {
         const { promises: fs } = await import('fs');
         const path = await import('path');
         
-        const TOKEN_STORE_FILE = path.join(process.cwd(), 'configs', 'token-store.json');
+        const TOKEN_STORE_FILE = path.join('/tmp/configs', 'token-store.json');
         
         if (!existsSync(TOKEN_STORE_FILE)) {
             return false;

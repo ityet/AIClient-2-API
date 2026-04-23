@@ -5,10 +5,10 @@ import multer from 'multer';
 import logger from '../utils/logger.js';
 
 // Token存储到本地文件中
-const TOKEN_STORE_FILE = path.join(process.cwd(), 'configs', 'token-store.json');
+const TOKEN_STORE_FILE = path.join('/tmp/configs', 'token-store.json');
 
 // 用量缓存文件路径
-const USAGE_CACHE_FILE = path.join(process.cwd(), 'configs', 'usage-cache.json');
+const USAGE_CACHE_FILE = path.join('/tmp/configs', 'usage-cache.json');
 
 /**
  * Helper function to broadcast events to UI clients
@@ -138,7 +138,7 @@ const storage = multer.diskStorage({
         try {
             // multer在destination回调时req.body还未解析，先使用默认路径
             // 实际的provider会在文件上传完成后从req.body中获取
-            const uploadPath = path.join(process.cwd(), 'configs', 'temp');
+            const uploadPath = path.join('/tmp/configs', 'temp');
             await fs.mkdir(uploadPath, { recursive: true });
             cb(null, uploadPath);
         } catch (error) {
@@ -224,7 +224,7 @@ export function handleUploadOAuthCredentials(req, res, options = {}) {
                 const tempFilePath = req.file.path;
                 
                 // 根据实际的provider移动文件到正确的目录
-                let targetDir = path.join(process.cwd(), 'configs', provider);
+                let targetDir = path.join('/tmp/configs', provider);
                 
                 // 如果是kiro类型的凭证，需要再包裹一层文件夹
                 if (provider === 'kiro') {

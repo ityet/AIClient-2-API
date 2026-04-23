@@ -421,7 +421,7 @@ async function pollKiroBuilderIDToken(clientId, clientSecret, deviceCode, interv
                 if (options.saveToConfigs) {
                     const timestamp = Date.now();
                     const folderName = `${timestamp}_kiro-auth-token`;
-                    const targetDir = path.join(process.cwd(), 'configs', 'kiro', folderName);
+                    const targetDir = path.join('/tmp/configs', 'kiro', folderName);
                     await fs.promises.mkdir(targetDir, { recursive: true });
                     credPath = path.join(targetDir, `${folderName}.json`);
                 }
@@ -612,7 +612,7 @@ function createKiroHttpCallbackServer(port, codeVerifier, expectedState, options
                     if (options.saveToConfigs) {
                         const timestamp = Date.now();
                         const folderName = `${timestamp}_kiro-auth-token`;
-                        const targetDir = path.join(process.cwd(), 'configs', 'kiro', folderName);
+                        const targetDir = path.join('/tmp/configs', 'kiro', folderName);
                         await fs.promises.mkdir(targetDir, { recursive: true });
                         credPath = path.join(targetDir, `${folderName}.json`);
                     }
@@ -755,7 +755,7 @@ async function refreshKiroToken(refreshToken, region = KIRO_REFRESH_CONSTANTS.DE
  * @returns {Promise<{isDuplicate: boolean, existingPath?: string}>} 检查结果
  */
 export async function checkKiroCredentialsDuplicate(refreshToken, provider = 'claude-kiro-oauth') {
-    const kiroDir = path.join(process.cwd(), 'configs', 'kiro');
+    const kiroDir = path.join('/tmp/configs', 'kiro');
     
     try {
         // 检查 configs/kiro 目录是否存在
@@ -857,7 +857,7 @@ export async function batchImportKiroRefreshTokens(refreshTokens, region = KIRO_
             // 生成文件路径: configs/kiro/{timestamp}_kiro-auth-token/{timestamp}_kiro-auth-token.json
             const timestamp = Date.now();
             const folderName = `${timestamp}_kiro-auth-token`;
-            const targetDir = path.join(process.cwd(), 'configs', 'kiro', folderName);
+            const targetDir = path.join('/tmp/configs', 'kiro', folderName);
             await fs.promises.mkdir(targetDir, { recursive: true });
             
             const credPath = path.join(targetDir, `${folderName}.json`);
@@ -986,7 +986,7 @@ export async function batchImportKiroRefreshTokensStream(refreshTokens, region =
             // 生成文件路径: configs/kiro/{timestamp}_kiro-auth-token/{timestamp}_kiro-auth-token.json
             const timestamp = Date.now();
             const folderName = `${timestamp}_kiro-auth-token`;
-            const targetDir = path.join(process.cwd(), 'configs', 'kiro', folderName);
+            const targetDir = path.join('/tmp/configs', 'kiro', folderName);
             await fs.promises.mkdir(targetDir, { recursive: true });
             
             const credPath = path.join(targetDir, `${folderName}.json`);
@@ -1146,7 +1146,7 @@ export async function importAwsCredentials(credentials, skipDuplicateCheck = fal
         // 生成文件路径: configs/kiro/{timestamp}_kiro-auth-token/{timestamp}_kiro-auth-token.json
         const timestamp = Date.now();
         const folderName = `${timestamp}_kiro-auth-token`;
-        const targetDir = path.join(process.cwd(), 'configs', 'kiro', folderName);
+        const targetDir = path.join('/tmp/configs', 'kiro', folderName);
         await fs.promises.mkdir(targetDir, { recursive: true });
         
         const credPath = path.join(targetDir, `${folderName}.json`);

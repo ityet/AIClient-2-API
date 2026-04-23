@@ -180,7 +180,7 @@ describe('Security Fixes Integration Tests', () => {
         });
 
         test('should accept valid paths within working directory', async () => {
-            const validPath = 'configs/my_prompt.txt';
+            const validPath = '/tmp/configs/my_prompt.txt';
             const response = await fetch(`${TEST_SERVER_BASE_URL}/api/config`, {
                 method: 'POST',
                 headers: {

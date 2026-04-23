@@ -208,7 +208,7 @@ async function createOAuthCallbackServer(config, redirectUri, authClient, credPa
                         // 如果指定了保存到 configs 目录
                         if (options.saveToConfigs) {
                             const providerDir = options.providerDir;
-                            const targetDir = path.join(process.cwd(), 'configs', providerDir);
+                            const targetDir = path.join('/tmp/configs', providerDir);
                             await fs.promises.mkdir(targetDir, { recursive: true });
                             const timestamp = Date.now();
                             const filename = `${timestamp}_oauth_creds.json`;
@@ -418,7 +418,7 @@ export async function checkGeminiCredentialsDuplicate(providerType, refreshToken
     if (!config) return { isDuplicate: false };
 
     const providerDir = config.credentialsDir.replace('.', '');
-    const targetDir = path.join(process.cwd(), 'configs', providerDir);
+    const targetDir = path.join('/tmp/configs', providerDir);
     
     try {
         if (!fs.existsSync(targetDir)) {
@@ -513,7 +513,7 @@ export async function batchImportGeminiTokensStream(providerType, tokens, onProg
             // 生成文件路径
             const timestamp = Date.now();
             const providerDir = config.credentialsDir.replace('.', ''); // 去掉开头的点
-            const targetDir = path.join(process.cwd(), 'configs', providerDir);
+            const targetDir = path.join('/tmp/configs', providerDir);
             await fs.promises.mkdir(targetDir, { recursive: true });
             
             const filename = `${timestamp}_${i}_oauth_creds.json`;

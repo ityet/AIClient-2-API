@@ -15,7 +15,7 @@ function syncRuntimeCustomModels(currentConfig, customModels) {
  * 获取自定义模型列表
  */
 export async function handleGetCustomModels(req, res, currentConfig) {
-    const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+    const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
     let customModels = [];
 
     try {
@@ -40,7 +40,7 @@ export async function handleGetCustomModels(req, res, currentConfig) {
 export async function handleAddCustomModel(req, res, currentConfig) {
     try {
         const body = await getRequestBody(req);
-        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         return await withFileLock(filePath, () => _handleAddCustomModel(req, res, currentConfig, body));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -58,7 +58,7 @@ async function _handleAddCustomModel(req, res, currentConfig, body) {
             return true;
         }
 
-        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         let customModels = [];
 
         if (existsSync(filePath)) {
@@ -108,7 +108,7 @@ async function _handleAddCustomModel(req, res, currentConfig, body) {
 export async function handleUpdateCustomModel(req, res, currentConfig, modelId) {
     try {
         const body = await getRequestBody(req);
-        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         return await withFileLock(filePath, () => _handleUpdateCustomModel(req, res, currentConfig, modelId, body));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -120,7 +120,7 @@ async function _handleUpdateCustomModel(req, res, currentConfig, modelId, body) 
     try {
         const updatedModel = body;
 
-        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         let customModels = [];
 
         if (existsSync(filePath)) {
@@ -178,7 +178,7 @@ async function _handleUpdateCustomModel(req, res, currentConfig, modelId, body) 
  */
 export async function handleDeleteCustomModel(req, res, currentConfig, modelId) {
     try {
-        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = CONFIG.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         return await withFileLock(filePath, () => _handleDeleteCustomModel(req, res, currentConfig, modelId));
     } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -188,7 +188,7 @@ export async function handleDeleteCustomModel(req, res, currentConfig, modelId) 
 }
 async function _handleDeleteCustomModel(req, res, currentConfig, modelId) {
     try {
-        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || 'configs/custom_models.json';
+        const filePath = currentConfig.CUSTOM_MODELS_FILE_PATH || '/tmp/configs//custom_models.json';
         let customModels = [];
 
         if (existsSync(filePath)) {

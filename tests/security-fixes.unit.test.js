@@ -178,15 +178,15 @@ describe('Unit Tests - withTimeout', () => {
 describe('Unit Tests - Path Validation', () => {
     test('should accept paths within working directory', () => {
         const cwd = process.platform === 'win32' ? 'C:\\Users\\Test\\Project' : '/home/user/project';
-        expect(validatePath('configs/test.txt', cwd)).toBe(true);
-        expect(validatePath('./configs/test.txt', cwd)).toBe(true);
+        expect(validatePath('/tmp/configs/test.txt', cwd)).toBe(true);
+        expect(validatePath('/tmp/configs/test.txt', cwd)).toBe(true);
         expect(validatePath('test.txt', cwd)).toBe(true);
     });
 
     test('should reject paths with directory traversal', () => {
         const cwd = process.platform === 'win32' ? 'C:\\Users\\Test\\Project' : '/home/user/project';
         expect(validatePath('../../../etc/passwd', cwd)).toBe(false);
-        expect(validatePath('configs/../../etc/passwd', cwd)).toBe(false);
+        expect(validatePath('/tmp/configs/../../etc/passwd', cwd)).toBe(false);
     });
 
     test('should reject absolute paths outside working directory', () => {

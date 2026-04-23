@@ -12,7 +12,7 @@ import { RateManager } from '../../utils/rate-tracker.js';
 import { getBeijingDateString } from '../../utils/common.js';
 
 // 配置文件路径
-const KEYS_STORE_FILE = path.join(process.cwd(), 'configs', 'api-potluck-keys.json');
+const KEYS_STORE_FILE = path.join('/tmp/configs', 'api-potluck-keys.json');
 
 const KEY_PREFIX = 'maki_';
 

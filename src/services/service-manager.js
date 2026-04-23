@@ -46,7 +46,7 @@ export async function autoLinkProviderConfigs(config, options = {}) {
     } else {
         // 遍历所有提供商映射
         for (const mapping of PROVIDER_MAPPINGS) {
-            const configsPath = path.join('/tmp', 'configs', mapping.dirName);
+            const configsPath = path.join('/tmp/configs', mapping.dirName);
             const { providerType, credPathKey, defaultCheckModel, displayName, needsProjectId } = mapping;
             
             // 确保提供商类型数组存在

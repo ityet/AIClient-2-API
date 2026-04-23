@@ -5,7 +5,7 @@ import logger from '../../utils/logger.js';
 import { RateManager } from '../../utils/rate-tracker.js';
 import { getBeijingDateString } from '../../utils/common.js';
 
-const STATS_STORE_FILE = path.join(process.cwd(), 'configs', 'model-usage-stats.json');
+const STATS_STORE_FILE = path.join('/tmp/configs', 'model-usage-stats.json');
 const DEFAULT_CONFIG = {
     persistInterval: 5000
 };

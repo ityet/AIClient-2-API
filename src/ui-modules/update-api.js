@@ -512,7 +512,7 @@ async function performTarballUpdate(localVersion, latestTag) {
         
         // 6. 定义需要保留的目录和文件（不被覆盖）
         const preservePaths = [
-            'configs',           // 用户配置目录
+            '/tmp/configs',           // 用户配置目录
             'node_modules',      // 依赖目录
             '.update_temp',      // 临时更新目录
             'logs',              // 日志目录

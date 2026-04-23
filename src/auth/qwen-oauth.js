@@ -186,7 +186,7 @@ async function pollQwenToken(deviceCode, codeVerifier, interval = 5, expiresIn =
                 
                 // 如果指定了保存到 configs 目录
                 if (options.saveToConfigs) {
-                    const targetDir = path.join(process.cwd(), 'configs', options.providerDir);
+                    const targetDir = path.join('/tmp/configs', options.providerDir);
                     await fs.promises.mkdir(targetDir, { recursive: true });
                     const timestamp = Date.now();
                     const filename = `${timestamp}_oauth_creds.json`;

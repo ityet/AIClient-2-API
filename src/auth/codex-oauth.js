@@ -501,7 +501,7 @@ class CodexAuth {
         } else {
             // 保存到 configs/codex 目录（与其他供应商一致）
             const projectDir = process.cwd();
-            const targetDir = path.join(projectDir, 'configs', 'codex');
+            const targetDir = path.join('/tmp/configs', 'codex');
             await fs.promises.mkdir(targetDir, { recursive: true });
             const timestamp = Date.now();
             const filename = `${timestamp}_codex-${email}.json`;
@@ -537,7 +537,7 @@ class CodexAuth {
         } else {
             // 从 configs/codex 目录加载（与其他供应商一致）
             const projectDir = process.cwd();
-            const targetDir = path.join(projectDir, 'configs', 'codex');
+            const targetDir = path.join('/tmp/configs', 'codex');
 
             // 扫描目录找到匹配的凭据文件
             try {
@@ -584,7 +584,7 @@ class CodexAuth {
             credsPath = this.config.CODEX_OAUTH_CREDS_FILE_PATH;
         } else {
             const projectDir = process.cwd();
-            const targetDir = path.join(projectDir, 'configs', 'codex');
+            const targetDir = path.join('/tmp/configs', 'codex');
 
             try {
                 const files = await fs.promises.readdir(targetDir);
@@ -614,7 +614,7 @@ class CodexAuth {
      */
     async checkDuplicate(accountId, refreshToken) {
         const projectDir = process.cwd();
-        const targetDir = path.join(projectDir, 'configs', 'codex');
+        const targetDir = path.join('/tmp/configs', 'codex');
 
         try {
             if (!fs.existsSync(targetDir)) {

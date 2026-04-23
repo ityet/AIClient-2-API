@@ -395,7 +395,7 @@ function createIFlowCallbackServer(port, redirectUri, expectedState, options = {
                         
                         if (options.saveToConfigs) {
                             const providerDir = options.providerDir || 'iflow';
-                            const targetDir = path.join(process.cwd(), 'configs', providerDir);
+                            const targetDir = path.join('/tmp/configs', providerDir);
                             await fs.promises.mkdir(targetDir, { recursive: true });
                             const timestamp = Date.now();
                             const filename = `${timestamp}_oauth_creds.json`;

@@ -78,7 +78,7 @@ export class CodexApiService {
             } else {
                 // 从 configs/codex 目录扫描加载
                 const projectDir = process.cwd();
-                const targetDir = path.join(projectDir, 'configs', 'codex');
+                const targetDir = path.join('/tmp/configs', 'codex');
                 const files = await fs.readdir(targetDir);
                 const matchingFile = files
                     .filter(f => f.includes(`codex-${email}`) && f.endsWith('.json'))
@@ -511,7 +511,7 @@ export class CodexApiService {
 
         // 3) 兜底：写入 configs/codex（与 OAuth 保存默认目录保持一致，避免“读取 configs/codex、写入 .codex”导致永远读到旧 token）
         const projectDir = process.cwd();
-        return path.join(projectDir, 'configs', 'codex', `${Date.now()}_codex-${email}.json`);
+        return path.join('/tmp/configs', 'codex', `${Date.now()}_codex-${email}.json`);
     }
 
     /**
